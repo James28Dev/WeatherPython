@@ -1,0 +1,33 @@
+body{
+    font-family: 'Kanit'
+}
+
+.row {
+  background-color: yellow; /* กำหนดสีพื้นหลังให้กับทุก element ที่มี class="row" */
+  padding: 10px; /* เพิ่มพื้นที่ภายในเพื่อให้สีพื้นหลังเห็นชัดเจน */
+  margin-bottom: 5px; /* เพิ่มระยะห่างด้านล่างแต่ละแถว */
+  display: flex;
+}
+
+.column {
+  flex: 1; /* กำหนดให้แต่ละคอลัมน์มีขนาดเท่ากัน */
+  padding: 10px;
+  text-align: center; /* จัดข้อความให้อยู่ตรงกลางคอลัมน์ */
+  display: flex;
+}
+
+#col3-row1 {
+  background-color: pink;
+}
+/* คุณสามารถกำหนดสไตล์ที่แตกต่างกันให้กับแต่ละแถวได้โดยใช้ :nth-child */
+.row:nth-child(1) {
+  background-color: lightskyblue;
+}
+
+.row:nth-child(2) {
+  background-color: lightsalmon;
+}
+
+.row:nth-child(3) {
+  background-color: lightgoldenrodyellow;
+}
