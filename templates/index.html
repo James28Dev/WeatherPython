@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="row">
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column" id="col3-row1">
+            <div id="weather-container">
+                <h2>Weather in Bangkok</h2>
+                <p>Description: <span id="weather-description">Loading...</span></p>
+                <p>Temperature: <span id="weather-temperature">Loading...</span> °C</p>
+                <p>Last Updated: <span id="weather-timestamp">Loading...</span></p>
+                <p id="error-message" style="color: red;"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+    </div>
+
+    <script>
+        async function fetchWeatherData() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/weather'); // หรือ URL อื่นๆ ที่ weather.py รันอยู่
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.error}`);
+                }
+                const data = await response.json();
+                document.getElementById('weather-description').textContent = data.description;
+                document.getElementById('weather-temperature').textContent = data.temperature;
+                document.getElementById('weather-timestamp').textContent = data.timestamp;
+                document.getElementById('error-message').textContent = ''; // Clear any previous error
+            } catch (error) {
+                console.error("Error fetching weather data:", error);
+                document.getElementById('error-message').textContent = `Error loading weather data: ${error.message}`;
+                document.getElementById('weather-description').textContent = 'Error';
+                document.getElementById('weather-temperature').textContent = 'Error';
+                document.getElementById('weather-timestamp').textContent = 'Error';
+            }
+        }
+
+        // เรียกฟังก์ชัน fetchWeatherData เมื่อหน้าเว็บโหลดเสร็จ
+        window.onload = fetchWeatherData;
+    </script>
+</body>
+</html>
